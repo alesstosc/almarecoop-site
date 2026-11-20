@@ -139,5 +139,5 @@ upload sono volumi persistenti, mai parte dell'immagine.
 
 ## Autore
 
-Sviluppo, amministrazione e messa in produzione: **Alessandro Toscani**
+Sviluppo, amministrazione e messa in produzione: **Alessandro Toscano**
 — [almarecoop.it](https://almarecoop.it)
