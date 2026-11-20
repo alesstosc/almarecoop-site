@@ -1,0 +1,190 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Dashboard - Area Amministrativa{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="h3 mb-0">Dashboard</h1>
+            <p class="text-muted">Panoramica generale dell'attività della cooperativa</p>
+        </div>
+    </div>
+    
+    <!-- Statistiche -->
+    <div class="row mb-4">
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="mb-0">{{ stats.lead_cooperativa }}</h4>
+                            <p class="mb-0">Lead Cooperativa</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="bi bi-people-fill fs-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="mb-0">{{ stats.lead_compratore }}</h4>
+                            <p class="mb-0">Lead Compratori</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="bi bi-cart3 fs-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="mb-0">{{ stats.lead_generico }}</h4>
+                            <p class="mb-0">Contatti Generali</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="bi bi-envelope fs-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="card bg-warning text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="mb-0">{{ stats.content_cards }}</h4>
+                            <p class="mb-0">Contenuti Attivi</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="bi bi-file-earmark-text fs-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Ultimi Lead -->
+    <div class="row">
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="bi bi-people-fill me-2"></i>
+                        Ultime Collaborazioni
+                    </h5>
+                </div>
+                <div class="card-body p-0">
+                    {% if recent_leads.cooperativa %}
+                    <div class="list-group list-group-flush">
+                        {% for lead in recent_leads.cooperativa %}
+                        <div class="list-group-item">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h6 class="mb-1">{{ lead.ragione_sociale }}</h6>
+                                    <p class="mb-1 small text-muted">{{ lead.referente }}</p>
+                                    <small class="text-muted">{{ lead.created_at.strftime('%d/%m/%Y %H:%M') }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p class="text-muted text-center py-3">Nessuna richiesta di collaborazione</p>
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                    <a href="{{ url_for('admin.lead_cooperativa') }}" class="btn btn-sm btn-primary">
+                        Vedi tutti
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="bi bi-cart3 me-2"></i>
+                        Ultimi Compratori
+                    </h5>
+                </div>
+                <div class="card-body p-0">
+                    {% if recent_leads.compratore %}
+                    <div class="list-group list-group-flush">
+                        {% for lead in recent_leads.compratore %}
+                        <div class="list-group-item">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h6 class="mb-1">{{ lead.ragione_sociale }}</h6>
+                                    <p class="mb-1 small text-muted">{{ lead.referente_acquisti }}</p>
+                                    <small class="text-muted">{{ lead.created_at.strftime('%d/%m/%Y %H:%M') }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p class="text-muted text-center py-3">Nessuna richiesta da compratori</p>
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                    <a href="{{ url_for('admin.lead_compratore') }}" class="btn btn-sm btn-success">
+                        Vedi tutti
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="bi bi-envelope me-2"></i>
+                        Ultimi Contatti
+                    </h5>
+                </div>
+                <div class="card-body p-0">
+                    {% if recent_leads.generico %}
+                    <div class="list-group list-group-flush">
+                        {% for lead in recent_leads.generico %}
+                        <div class="list-group-item">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h6 class="mb-1">{{ lead.nome_cognome }}</h6>
+                                    <p class="mb-1 small text-muted">{{ lead.oggetto }}</p>
+                                    <small class="text-muted">{{ lead.created_at.strftime('%d/%m/%Y %H:%M') }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p class="text-muted text-center py-3">Nessun contatto generale</p>
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                    <a href="{{ url_for('admin.lead_generico') }}" class="btn btn-sm btn-info">
+                        Vedi tutti
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

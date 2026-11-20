@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}Area Compratori - Cooperativa Mitilicoltori Comacchio{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <h1 class="display-5 fw-bold text-success">Area Compratori</h1>
+                <p class="lead text-muted">
+                    Sei un ristoratore, grossista, agente o rappresenti la GDO? 
+                    Scopri i nostri prodotti e servizi dedicati ai professionali del settore.
+                </p>
+            </div>
+
+            <!-- Form -->
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">
+                        <i class="bi bi-cart3 me-2"></i>
+                        Richiesta Informazioni Commerciali
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST" novalidate>
+                        {{ form.hidden_tag() }}
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.ragione_sociale.label(class="form-label fw-bold") }}
+                                {{ form.ragione_sociale() }}
+                                {% if form.ragione_sociale.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.ragione_sociale.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                {{ form.partita_iva.label(class="form-label fw-bold") }}
+                                {{ form.partita_iva() }}
+                                {% if form.partita_iva.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.partita_iva.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.referente_acquisti.label(class="form-label fw-bold") }}
+                                {{ form.referente_acquisti() }}
+                                {% if form.referente_acquisti.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.referente_acquisti.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                {{ form.email.label(class="form-label fw-bold") }}
+                                {{ form.email() }}
+                                {% if form.email.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.email.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.telefono.label(class="form-label fw-bold") }}
+                                {{ form.telefono() }}
+                                {% if form.telefono.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.telefono.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                {{ form.tipologia_attivita.label(class="form-label fw-bold") }}
+                                {{ form.tipologia_attivita() }}
+                                {% if form.tipologia_attivita.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.tipologia_attivita.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            {{ form.prodotti_interesse.label(class="form-label fw-bold") }}
+                            <div class="row">
+                                {% for subfield in form.prodotti_interesse %}
+                                <div class="col-md-6 col-lg-4 mb-2">
+                                    <div class="form-check">
+                                        {{ subfield(class="form-check-input") }}
+                                        {{ subfield.label(class="form-check-label") }}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% if form.prodotti_interesse.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.prodotti_interesse.errors %}
+                                        <div>{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-4">
+                            {{ form.messaggio.label(class="form-label fw-bold") }}
+                            {{ form.messaggio() }}
+                            {% if form.messaggio.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.messaggio.errors %}
+                                        <div>{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Privacy -->
+                        <div class="mb-4">
+                            <div class="form-check">
+                                {{ form.privacy_accepted() }}
+                                {{ form.privacy_accepted.label(class="form-check-label") }}
+                            </div>
+                            {% if form.privacy_accepted.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.privacy_accepted.errors %}
+                                        <div>{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Submit -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="bi bi-send me-2"></i>
+                                Invia Richiesta
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Info aggiuntive -->
+            <div class="row mt-5">
+                <div class="col-md-4 text-center mb-3">
+                    <div class="bg-light rounded-3 p-4">
+                        <i class="bi bi-truck text-success fs-1 mb-3"></i>
+                        <h5>Consegne</h5>
+                        <p class="small text-muted">Consegne rapide e sicure con catena del freddo garantita</p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center mb-3">
+                    <div class="bg-light rounded-3 p-4">
+                        <i class="bi bi-file-earmark-text text-primary fs-1 mb-3"></i>
+                        <h5>Listini</h5>
+                        <p class="small text-muted">Listini personalizzati e condizioni commerciali dedicate</p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center mb-3">
+                    <div class="bg-light rounded-3 p-4">
+                        <i class="bi bi-headset text-info fs-1 mb-3"></i>
+                        <h5>Supporto</h5>
+                        <p class="small text-muted">Assistenza commerciale dedicata per ogni esigenza</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

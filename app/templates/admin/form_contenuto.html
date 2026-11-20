@@ -1,0 +1,229 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}{{ title }} - Area Amministrativa{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="h3 mb-0">{{ title }}</h1>
+            <p class="text-muted">
+                {% if card %}
+                Modifica il contenuto esistente
+                {% else %}
+                Crea un nuovo contenuto dinamico per il sito
+                {% endif %}
+            </p>
+        </div>
+    </div>
+    
+    <!-- Form -->
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="bi bi-file-earmark-text me-2"></i>
+                        Dettagli Contenuto
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data" novalidate>
+                        {{ form.hidden_tag() }}
+                        
+                        <div class="row">
+                            <div class="col-md-8 mb-3">
+                                {{ form.titolo.label(class="form-label fw-bold") }}
+                                {{ form.titolo() }}
+                                {% if form.titolo.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.titolo.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-md-4 mb-3">
+                                {{ form.sezione.label(class="form-label fw-bold") }}
+                                {{ form.sezione() }}
+                                {% if form.sezione.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.sezione.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            {{ form.contenuto.label(class="form-label fw-bold") }}
+                            {{ form.contenuto() }}
+                            {% if form.contenuto.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.contenuto.errors %}
+                                        <div>{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">
+                                Puoi utilizzare HTML base per formattare il testo (es. &lt;strong&gt;, &lt;em&gt;, &lt;br&gt;, &lt;p&gt;).
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.immagine.label(class="form-label fw-bold") }}
+                                {{ form.immagine(class="form-control") }}
+                                {% if form.immagine.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.immagine.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                {% if card and card.immagine_filename %}
+                                    <div class="mt-2">
+                                        <small class="text-muted">Immagine attuale:</small><br>
+                                        <img src="{{ url_for('static', filename='uploads/' + card.immagine_filename) }}" 
+                                             alt="Immagine attuale" class="img-thumbnail" style="max-height: 100px;">
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-md-3 mb-3">
+                                {{ form.ordine.label(class="form-label fw-bold") }}
+                                {{ form.ordine() }}
+                                {% if form.ordine.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.ordine.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="form-text">
+                                    Ordine di visualizzazione (0 = primo)
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label fw-bold">Stato</label>
+                                <div class="form-check form-switch">
+                                    {{ form.is_active(class="form-check-input") }}
+                                    {{ form.is_active.label(class="form-check-label") }}
+                                </div>
+                                {% if form.is_active.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.is_active.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <!-- Pulsanti -->
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-lg me-2"></i>
+                                {% if card %}Aggiorna Contenuto{% else %}Crea Contenuto{% endif %}
+                            </button>
+                            <a href="{{ url_for('admin.gestione_contenuti') }}" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left me-2"></i>
+                                Torna alla Lista
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sidebar informazioni -->
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0">
+                        <i class="bi bi-info-circle me-2"></i>
+                        Guida
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <h6 class="text-primary">Titolo</h6>
+                        <p class="small text-muted">
+                            Il titolo principale del contenuto che verrà mostrato come intestazione.
+                        </p>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h6 class="text-primary">Sezione</h6>
+                        <p class="small text-muted">
+                            Determina dove verrà visualizzato il contenuto nel sito:
+                        </p>
+                        <ul class="small text-muted">
+                            <li><strong>Homepage:</strong> Pagina principale</li>
+                            <li><strong>Chi Siamo:</strong> Pagina informativa</li>
+                            <li><strong>Prodotti:</strong> Catalogo prodotti</li>
+                            <li><strong>Servizi:</strong> Servizi offerti</li>
+                            <li><strong>News:</strong> Notizie e aggiornamenti</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h6 class="text-success">Contenuto</h6>
+                        <p class="small text-muted">
+                            Il testo principale. Puoi usare HTML per formattare:
+                        </p>
+                        <ul class="small text-muted">
+                            <li><code>&lt;strong&gt;</code> per il grassetto</li>
+                            <li><code>&lt;em&gt;</code> per il corsivo</li>
+                            <li><code>&lt;br&gt;</code> per andare a capo</li>
+                            <li><code>&lt;p&gt;</code> per i paragrafi</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h6 class="text-info">Immagine</h6>
+                        <p class="small text-muted">
+                            Immagine opzionale che accompagna il contenuto. 
+                            Formati supportati: JPG, PNG, GIF, SVG.
+                        </p>
+                    </div>
+                    
+                    <div class="mb-0">
+                        <h6 class="text-warning">Ordine</h6>
+                        <p class="small text-muted">
+                            Determina l'ordine di visualizzazione nella sezione. 
+                            Numeri più bassi appaiono per primi.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Anteprima -->
+            {% if card %}
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h6 class="mb-0">
+                        <i class="bi bi-eye me-2"></i>
+                        Informazioni
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="mb-2">
+                        <strong>Creato:</strong><br>
+                        <small class="text-muted">{{ card.created_at.strftime('%d/%m/%Y alle %H:%M') }}</small>
+                    </div>
+                    <div class="mb-0">
+                        <strong>Ultimo aggiornamento:</strong><br>
+                        <small class="text-muted">{{ card.updated_at.strftime('%d/%m/%Y alle %H:%M') }}</small>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

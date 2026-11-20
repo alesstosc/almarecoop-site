@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Errore del Server - {{ global_settings.nome_sito if global_settings else 'Cooperativa Mitilicoltori' }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+            
+            <!-- Icona di errore -->
+            <div class="mb-4">
+                <i class="bi bi-exclamation-octagon-fill text-danger" style="font-size: 5rem;"></i>
+            </div>
+            
+            <!-- Messaggio principale -->
+            <h1 class="display-4 fw-bold text-danger mb-3">500</h1>
+            <h2 class="h3 mb-4">Errore Interno del Server</h2>
+            <p class="lead text-muted mb-4">
+                Si è verificato un errore interno. Il nostro team è stato notificato e sta lavorando per risolvere il problema.
+            </p>
+            
+            <!-- Informazioni -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title text-danger">Cosa è successo?</h5>
+                    <p class="text-muted mb-3">
+                        Il server ha riscontrato un errore interno e non è riuscito a completare la richiesta.
+                    </p>
+                    <h6 class="text-primary">Cosa puoi fare:</h6>
+                    <ul class="list-unstyled text-start">
+                        <li class="mb-2">
+                            <i class="bi bi-arrow-clockwise text-info me-2"></i>
+                            Riprova tra qualche minuto
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-house text-info me-2"></i>
+                            Torna alla homepage
+                        </li>
+                        <li>
+                            <i class="bi bi-envelope text-info me-2"></i>
+                            Contattaci se il problema persiste
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Pulsanti di azione -->
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+                <a href="{{ url_for('main.index') }}" class="btn btn-primary btn-lg">
+                    <i class="bi bi-house me-2"></i>Torna alla Homepage
+                </a>
+                <a href="javascript:history.back()" class="btn btn-outline-secondary btn-lg">
+                    <i class="bi bi-arrow-left me-2"></i>Torna Indietro
+                </a>
+                <a href="{{ url_for('main.contatti') }}" class="btn btn-outline-primary btn-lg">
+                    <i class="bi bi-envelope me-2"></i>Segnala il Problema
+                </a>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,385 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Impostazioni Sito - Area Amministrativa{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="h3 mb-0">Impostazioni Sito</h1>
+            <p class="text-muted">Gestisci l'identità visiva e le informazioni globali del sito</p>
+        </div>
+    </div>
+    
+    <!-- Form Impostazioni -->
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="bi bi-gear me-2"></i>
+                        Configurazione Globale
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data" novalidate>
+                        {{ form.hidden_tag() }}
+                        
+                        <!-- Sezione Identità Visiva -->
+                        <div class="mb-4">
+                            <h6 class="text-primary border-bottom pb-2 mb-3">
+                                <i class="bi bi-image me-2"></i>
+                                Identità Visiva
+                            </h6>
+                            
+                            <!-- Nome del Sito -->
+                            <div class="mb-3">
+                                {{ form.nome_sito.label(class="form-label fw-bold") }}
+                                {{ form.nome_sito(class="form-control") }}
+                                {% if form.nome_sito.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.nome_sito.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="form-text">
+                                    Il nome che apparirà nella navbar del sito web.
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    {{ form.logo.label(class="form-label fw-bold") }}
+                                    {{ form.logo(class="form-control") }}
+                                    {% if form.logo.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {% for error in form.logo.errors %}
+                                                <div>{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    {% if settings.logo_filename %}
+                                        <div class="mt-2">
+                                            <small class="text-muted">Logo attuale:</small><br>
+                                            <img src="{{ url_for('static', filename='uploads/' + settings.logo_filename) }}?v={{ settings.updated_at.timestamp() if settings.updated_at else '' }}" 
+                                                 alt="Logo attuale" class="logo-admin" style="max-height: 60px; border: 1px solid #dee2e6; padding: 4px; border-radius: 4px;">
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    {{ form.favicon.label(class="form-label fw-bold") }}
+                                    {{ form.favicon(class="form-control") }}
+                                    {% if form.favicon.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {% for error in form.favicon.errors %}
+                                                <div>{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    {% if settings.favicon_filename %}
+                                        <div class="mt-2">
+                                            <small class="text-muted">Favicon attuale:</small><br>
+                                            <img src="{{ url_for('static', filename='uploads/' + settings.favicon_filename) }}?v={{ settings.updated_at.timestamp() if settings.updated_at else '' }}" 
+                                                 alt="Favicon attuale" class="img-thumbnail" style="max-height: 32px;">
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Sezione Homepage -->
+                        <div class="mb-4">
+                            <h6 class="text-success border-bottom pb-2 mb-3">
+                                <i class="bi bi-house me-2"></i>
+                                Contenuti Homepage
+                            </h6>
+                            
+                            <div class="mb-3">
+                                {{ form.titolo_homepage.label(class="form-label fw-bold") }}
+                                {{ form.titolo_homepage(class="form-control") }}
+                                {% if form.titolo_homepage.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.titolo_homepage.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="form-text">
+                                    Il titolo principale che apparirà nella sezione hero della homepage.
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                {{ form.sottotitolo_homepage.label(class="form-label fw-bold") }}
+                                {{ form.sottotitolo_homepage(class="form-control") }}
+                                {% if form.sottotitolo_homepage.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.sottotitolo_homepage.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="form-text">
+                                    La descrizione che apparirà sotto il titolo principale.
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                {{ form.sfondo_homepage.label(class="form-label fw-bold") }}
+                                {{ form.sfondo_homepage(class="form-control") }}
+                                {% if form.sfondo_homepage.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.sfondo_homepage.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                {% if settings.sfondo_homepage_filename %}
+                                    <div class="mt-2">
+                                        <small class="text-muted">Sfondo attuale:</small><br>
+                                        <img src="{{ url_for('static', filename='uploads/' + settings.sfondo_homepage_filename) }}?v={{ settings.updated_at.timestamp() if settings.updated_at else '' }}" 
+                                             alt="Sfondo homepage attuale" class="img-thumbnail" style="max-height: 100px;">
+                                    </div>
+                                {% endif %}
+                                <div class="form-text">
+                                    Immagine di sfondo per la sezione hero della homepage. Se non caricata, verrà usato lo sfondo di default.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Sezione Dati Legali -->
+                        <div class="mb-4">
+                            <h6 class="text-success border-bottom pb-2 mb-3">
+                                <i class="bi bi-building me-2"></i>
+                                Dati Legali
+                            </h6>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    {{ form.partita_iva.label(class="form-label fw-bold") }}
+                                    {{ form.partita_iva() }}
+                                    {% if form.partita_iva.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {% for error in form.partita_iva.errors %}
+                                                <div>{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    {{ form.anno_fondazione.label(class="form-label fw-bold") }}
+                                    {{ form.anno_fondazione() }}
+                                    {% if form.anno_fondazione.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {% for error in form.anno_fondazione.errors %}
+                                                <div>{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    <div class="form-text">
+                                        Anno che apparirà nel copyright del footer.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                {{ form.colophon.label(class="form-label fw-bold") }}
+                                {{ form.colophon() }}
+                                {% if form.colophon.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.colophon.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="form-text">
+                                    Inserisci i dati della cooperativa: ragione sociale, indirizzo, PEC, telefono, ecc.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Sezione Link Social -->
+                        <div class="mb-4">
+                            <h6 class="text-info border-bottom pb-2 mb-3">
+                                <i class="bi bi-share me-2"></i>
+                                Link Social
+                            </h6>
+                            
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    {{ form.facebook_url.label(class="form-label fw-bold") }}
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-facebook text-primary"></i>
+                                        </span>
+                                        {{ form.facebook_url(class="form-control") }}
+                                    </div>
+                                    {% if form.facebook_url.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {% for error in form.facebook_url.errors %}
+                                                <div>{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-4 mb-3">
+                                    {{ form.instagram_url.label(class="form-label fw-bold") }}
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-instagram text-danger"></i>
+                                        </span>
+                                        {{ form.instagram_url(class="form-control") }}
+                                    </div>
+                                    {% if form.instagram_url.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {% for error in form.instagram_url.errors %}
+                                                <div>{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-4 mb-3">
+                                    {{ form.linkedin_url.label(class="form-label fw-bold") }}
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-linkedin text-primary"></i>
+                                        </span>
+                                        {{ form.linkedin_url(class="form-control") }}
+                                    </div>
+                                    {% if form.linkedin_url.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {% for error in form.linkedin_url.errors %}
+                                                <div>{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Pulsanti -->
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-lg me-2"></i>
+                                Salva Impostazioni
+                            </button>
+                            <a href="{{ url_for('admin.dashboard') }}" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left me-2"></i>
+                                Torna alla Dashboard
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sidebar informazioni -->
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0">
+                        <i class="bi bi-info-circle me-2"></i>
+                        Informazioni
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <h6 class="text-primary">Logo</h6>
+                        <p class="small text-muted">
+                            Il logo verrà visualizzato nella navbar chiara del sito mantenendo la trasparenza naturale. 
+                            <strong>PNG trasparenti perfettamente supportati!</strong><br>
+                            Formati supportati: JPG, PNG, GIF, SVG. Dimensione consigliata: 200x60px.
+                        </p>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h6 class="text-primary">Favicon</h6>
+                        <p class="small text-muted">
+                            L'icona che appare nella tab del browser. 
+                            Formati supportati: ICO, PNG, GIF. Dimensione: 32x32px o 16x16px.
+                        </p>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h6 class="text-success">Partita IVA</h6>
+                        <p class="small text-muted">
+                            La Partita IVA verrà mostrata nel footer del sito e nei documenti legali.
+                        </p>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h6 class="text-success">Colophon</h6>
+                        <p class="small text-muted">
+                            I dati della cooperativa verranno visualizzati nel footer. 
+                            Usa le interruzioni di riga per separare le informazioni.
+                        </p>
+                    </div>
+                    
+                    <div class="mb-0">
+                        <h6 class="text-info">Link Social</h6>
+                        <p class="small text-muted">
+                            I link ai social network verranno mostrati nella navbar e nel footer. 
+                            Lascia vuoto per nascondere l'icona corrispondente.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Anteprima -->
+            {% if settings %}
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h6 class="mb-0">
+                        <i class="bi bi-eye me-2"></i>
+                        Anteprima Impostazioni
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="mb-2">
+                        <strong>Nome Sito:</strong> {{ settings.nome_sito or 'Non impostato' }}
+                    </div>
+                    <div class="mb-2">
+                        <strong>Titolo Homepage:</strong> {{ settings.titolo_homepage or 'Non impostato' }}
+                    </div>
+                    <div class="mb-2">
+                        <strong>Sfondo Homepage:</strong> 
+                        {% if settings.sfondo_homepage_filename %}
+                            <span class="text-success">Personalizzato</span>
+                        {% else %}
+                            <span class="text-muted">Default</span>
+                        {% endif %}
+                    </div>
+                    <div class="mb-2">
+                        <strong>P.IVA:</strong> {{ settings.partita_iva or 'Non impostata' }}
+                    </div>
+                    <div class="mb-2">
+                        <strong>Anno Fondazione:</strong> {{ settings.anno_fondazione or 'Non impostato' }}
+                    </div>
+                    <div class="mb-2">
+                        <strong>Ultimo aggiornamento:</strong><br>
+                        <small class="text-muted">{{ settings.updated_at.strftime('%d/%m/%Y alle %H:%M') if settings.updated_at else 'Mai' }}</small>
+                    </div>
+                    <div class="mb-0">
+                        <strong>Social configurati:</strong><br>
+                        <small>
+                            {% if settings.facebook_url %}<i class="bi bi-facebook text-primary me-1"></i>{% endif %}
+                            {% if settings.instagram_url %}<i class="bi bi-instagram text-danger me-1"></i>{% endif %}
+                            {% if settings.linkedin_url %}<i class="bi bi-linkedin text-primary me-1"></i>{% endif %}
+                            {% if not (settings.facebook_url or settings.instagram_url or settings.linkedin_url) %}
+                                <span class="text-muted">Nessuno</span>
+                            {% endif %}
+                        </small>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}Contatti - Cooperativa Mitilicoltori Comacchio{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <h1 class="display-5 fw-bold text-info">Contattaci</h1>
+                <p class="lead text-muted">
+                    Hai domande, richieste o vuoi maggiori informazioni sui nostri prodotti e servizi? 
+                    Siamo qui per aiutarti.
+                </p>
+            </div>
+
+            <!-- Form -->
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h4 class="mb-0">
+                        <i class="bi bi-envelope me-2"></i>
+                        Modulo di Contatto
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST" novalidate>
+                        {{ form.hidden_tag() }}
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.nome_cognome.label(class="form-label fw-bold") }}
+                                {{ form.nome_cognome() }}
+                                {% if form.nome_cognome.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.nome_cognome.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                {{ form.email.label(class="form-label fw-bold") }}
+                                {{ form.email() }}
+                                {% if form.email.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.email.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            {{ form.oggetto.label(class="form-label fw-bold") }}
+                            {{ form.oggetto() }}
+                            {% if form.oggetto.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.oggetto.errors %}
+                                        <div>{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-4">
+                            {{ form.messaggio.label(class="form-label fw-bold") }}
+                            {{ form.messaggio() }}
+                            {% if form.messaggio.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.messaggio.errors %}
+                                        <div>{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Privacy -->
+                        <div class="mb-4">
+                            <div class="form-check">
+                                {{ form.privacy_accepted() }}
+                                {{ form.privacy_accepted.label(class="form-check-label") }}
+                            </div>
+                            {% if form.privacy_accepted.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.privacy_accepted.errors %}
+                                        <div>{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Submit -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-info btn-lg">
+                                <i class="bi bi-send me-2"></i>
+                                Invia Messaggio
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Orari e info -->
+            <div class="row mt-4">
+                <div class="col-md-6 mb-3">
+                    <div class="bg-white rounded-3 p-4 h-100 shadow-sm">
+                        <h6><i class="bi bi-clock text-info me-2"></i>Orari di Contatto</h6>
+                        <p class="small text-muted mb-0">
+                            Lunedì - Venerdì: 8:00 - 18:00<br>
+                            Sabato: 8:00 - 12:00<br>
+                            Domenica: Chiuso
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="bg-white rounded-3 p-4 h-100 shadow-sm">
+                        <h6><i class="bi bi-lightning text-warning me-2"></i>Risposta Rapida</h6>
+                        <p class="small text-muted mb-0">
+                            Ti risponderemo entro 24 ore<br>
+                            nei giorni lavorativi.<br>
+                            Per urgenze, contattaci telefonicamente.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

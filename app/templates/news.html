@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %}News - Cooperativa Mitilicoltori Comacchio{% endblock %}
+
+{% block meta_description %}Ultime notizie e aggiornamenti della Cooperativa Mitilicoltori di Comacchio. Novità, eventi e comunicazioni importanti.{% endblock %}
+
+{% block content %}
+<!-- Header della pagina -->
+<section class="bg-warning text-dark py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold mb-3">News e Aggiornamenti</h1>
+                <p class="lead">
+                    Le ultime notizie, eventi e comunicazioni della nostra cooperativa
+                </p>
+            </div>
+            <div class="col-lg-4 text-center">
+                <i class="bi bi-newspaper display-1 opacity-75"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contenuti Dinamici dalla ContentCard -->
+{% if cards %}
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            {% for card in cards %}
+            <div class="col-lg-6">
+                <div class="card h-100 shadow-sm border-warning">
+                    {% if card.immagine_filename %}
+                    <img src="{{ url_for('static', filename='uploads/' + card.immagine_filename) }}" 
+                         class="card-img-top" alt="{{ card.titolo }}" style="height: 250px; object-fit: cover;">
+                    {% endif %}
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-warning text-dark">News</span>
+                            <small class="text-muted">
+                                <i class="bi bi-calendar3 me-1"></i>
+                                {{ card.updated_at.strftime('%d/%m/%Y') }}
+                            </small>
+                        </div>
+                        <h4 class="card-title text-warning">{{ card.titolo }}</h4>
+                        <div class="card-text flex-grow-1">{{ card.contenuto | safe }}</div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% else %}
+<!-- Contenuto di default se non ci sono news -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <div class="bg-light rounded-3 p-5">
+                    <i class="bi bi-newspaper text-warning" style="font-size: 4rem;"></i>
+                    <h3 class="mt-4 mb-3">Nessuna news disponibile</h3>
+                    <p class="text-muted">
+                        Al momento non ci sono notizie da visualizzare. 
+                        Torna presto per gli ultimi aggiornamenti della cooperativa!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Sezione Newsletter -->
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="mb-4">Resta Aggiornato</h2>
+                <p class="lead text-muted mb-4">
+                    Vuoi ricevere le nostre ultime notizie e aggiornamenti? 
+                    Contattaci per rimanere sempre informato sulle attività della cooperativa.
+                </p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="{{ url_for('main.contatti') }}" class="btn btn-warning btn-lg">
+                        <i class="bi bi-envelope me-2"></i>Contattaci
+                    </a>
+                    {% if global_settings %}
+                        {% if global_settings.facebook_url %}
+                        <a href="{{ global_settings.facebook_url }}" class="btn btn-outline-primary btn-lg" target="_blank">
+                            <i class="bi bi-facebook me-2"></i>Facebook
+                        </a>
+                        {% endif %}
+                        {% if global_settings.instagram_url %}
+                        <a href="{{ global_settings.instagram_url }}" class="btn btn-outline-danger btn-lg" target="_blank">
+                            <i class="bi bi-instagram me-2"></i>Instagram
+                        </a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sezione Archivio -->
+{% if cards and cards|length > 3 %}
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h3 class="mb-4">Archivio News</h3>
+                <p class="text-muted">
+                    Visualizzando le {{ cards|length }} notizie più recenti. 
+                    Per informazioni su eventi passati, contattaci direttamente.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

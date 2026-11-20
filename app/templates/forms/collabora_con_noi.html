@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+
+{% block title %}Collabora con Noi - Cooperativa Mitilicoltori Comacchio{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <h1 class="display-5 fw-bold text-primary">Collabora con Noi</h1>
+                <p class="lead text-muted">
+                    Sei una cooperativa, un partner o un'azienda del settore? 
+                    Scopri le opportunità di collaborazione con la nostra cooperativa.
+                </p>
+            </div>
+
+            <!-- Form -->
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="bi bi-handshake me-2"></i>
+                        Richiesta di Collaborazione
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST" novalidate>
+                        {{ form.hidden_tag() }}
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.ragione_sociale.label(class="form-label fw-bold") }}
+                                {{ form.ragione_sociale() }}
+                                {% if form.ragione_sociale.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.ragione_sociale.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                {{ form.referente.label(class="form-label fw-bold") }}
+                                {{ form.referente() }}
+                                {% if form.referente.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.referente.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.email.label(class="form-label fw-bold") }}
+                                {{ form.email() }}
+                                {% if form.email.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.email.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                {{ form.telefono.label(class="form-label fw-bold") }}
+                                {{ form.telefono() }}
+                                {% if form.telefono.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.telefono.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            {{ form.settore.label(class="form-label fw-bold") }}
+                            {{ form.settore() }}
+                            {% if form.settore.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.settore.errors %}
+                                        <div>{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-4">
+                            {{ form.messaggio.label(class="form-label fw-bold") }}
+                            {{ form.messaggio() }}
+                            {% if form.messaggio.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.messaggio.errors %}
+                                        <div>{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Privacy -->
+                        <div class="mb-4">
+                            <div class="form-check">
+                                {{ form.privacy_accepted() }}
+                                {{ form.privacy_accepted.label(class="form-check-label") }}
+                            </div>
+                            {% if form.privacy_accepted.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.privacy_accepted.errors %}
+                                        <div>{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Submit -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-send me-2"></i>
+                                Invia Richiesta
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Info aggiuntive -->
+            <div class="row mt-5">
+                <div class="col-md-4 text-center mb-3">
+                    <div class="bg-light rounded-3 p-4">
+                        <i class="bi bi-people-fill text-primary fs-1 mb-3"></i>
+                        <h5>Partnership</h5>
+                        <p class="small text-muted">Collaborazioni strategiche con altre cooperative del settore</p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center mb-3">
+                    <div class="bg-light rounded-3 p-4">
+                        <i class="bi bi-gear-fill text-success fs-1 mb-3"></i>
+                        <h5>Servizi</h5>
+                        <p class="small text-muted">Condivisione di servizi, tecnologie e know-how</p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center mb-3">
+                    <div class="bg-light rounded-3 p-4">
+                        <i class="bi bi-graph-up text-info fs-1 mb-3"></i>
+                        <h5>Crescita</h5>
+                        <p class="small text-muted">Opportunità di crescita e sviluppo comune</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

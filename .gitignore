@@ -1,0 +1,35 @@
+# --- Segreti ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# --- Dati di runtime (mai versionati) ---
+instance/
+*.db
+*.sqlite
+*.sqlite3
+*.sql.gz
+app/static/uploads/*
+!app/static/uploads/.gitkeep
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+.venv/
+env/
+.python-version
+
+# --- Editor / OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- Log ---
+*.log

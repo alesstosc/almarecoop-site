@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block title %}Chi Siamo - Cooperativa Mitilicoltori Comacchio{% endblock %}
+
+{% block meta_description %}Scopri la storia e i valori della Cooperativa Mitilicoltori di Comacchio. Tradizione, qualità e sostenibilità nella produzione di molluschi.{% endblock %}
+
+{% block content %}
+<!-- Header della pagina -->
+<section class="bg-primary text-white py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold mb-3">Chi Siamo</h1>
+                <p class="lead">
+                    La storia, i valori e la missione della Cooperativa Mitilicoltori di Comacchio
+                </p>
+            </div>
+            <div class="col-lg-4 text-center">
+                <i class="bi bi-people-fill display-1 opacity-75"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contenuti Dinamici dalla ContentCard -->
+{% if cards %}
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            {% for card in cards %}
+            <div class="col-12">
+                <div class="card shadow-sm mb-4">
+                    <div class="row g-0">
+                        {% if card.immagine_filename %}
+                        <div class="col-md-4">
+                            <img src="{{ url_for('static', filename='uploads/' + card.immagine_filename) }}" 
+                                 class="img-fluid rounded-start h-100" alt="{{ card.titolo }}" style="object-fit: cover;">
+                        </div>
+                        <div class="col-md-8">
+                        {% else %}
+                        <div class="col-12">
+                        {% endif %}
+                            <div class="card-body p-4">
+                                <h3 class="card-title text-primary">{{ card.titolo }}</h3>
+                                <div class="card-text">{{ card.contenuto | safe }}</div>
+                                <small class="text-muted">
+                                    <i class="bi bi-calendar3 me-1"></i>
+                                    Aggiornato il {{ card.updated_at.strftime('%d/%m/%Y') }}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% else %}
+<!-- Contenuto di default se non ci sono card -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="text-center mb-5">
+                    <h2 class="mb-4">La Nostra Storia</h2>
+                    <p class="lead text-muted">
+                        La Cooperativa Mitilicoltori di Comacchio nasce dalla passione e dall'esperienza 
+                        di pescatori e allevatori che hanno fatto del mare Adriatico la loro casa.
+                    </p>
+                </div>
+                
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 bg-light">
+                            <div class="card-body text-center p-4">
+                                <i class="bi bi-clock-history text-primary fs-1 mb-3"></i>
+                                <h4>Tradizione</h4>
+                                <p class="text-muted">
+                                    Anni di esperienza tramandati di generazione in generazione 
+                                    nella coltivazione di molluschi di qualità.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 bg-light">
+                            <div class="card-body text-center p-4">
+                                <i class="bi bi-shield-check text-success fs-1 mb-3"></i>
+                                <h4>Qualità</h4>
+                                <p class="text-muted">
+                                    Controlli rigorosi e certificazioni per garantire 
+                                    prodotti freschi e sicuri per i nostri clienti.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 bg-light">
+                            <div class="card-body text-center p-4">
+                                <i class="bi bi-leaf text-success fs-1 mb-3"></i>
+                                <h4>Sostenibilità</h4>
+                                <p class="text-muted">
+                                    Pratiche di allevamento rispettose dell'ambiente marino 
+                                    per preservare l'ecosistema per le future generazioni.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 bg-light">
+                            <div class="card-body text-center p-4">
+                                <i class="bi bi-people text-primary fs-1 mb-3"></i>
+                                <h4>Cooperazione</h4>
+                                <p class="text-muted">
+                                    La forza dell'unione per crescere insieme e offrire 
+                                    il meglio del mare Adriatico.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Sezione Valori -->
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="mb-4">I Nostri Valori</h2>
+                <div class="mb-4">
+                    <h5><i class="bi bi-heart-fill text-danger me-2"></i>Passione</h5>
+                    <p class="text-muted">
+                        Amiamo il nostro lavoro e mettiamo il cuore in tutto quello che facciamo, 
+                        dalla coltivazione alla distribuzione dei nostri prodotti.
+                    </p>
+                </div>
+                <div class="mb-4">
+                    <h5><i class="bi bi-award-fill text-warning me-2"></i>Eccellenza</h5>
+                    <p class="text-muted">
+                        Puntiamo sempre al massimo della qualità, utilizzando le migliori 
+                        tecniche di allevamento e i più rigorosi controlli di qualità.
+                    </p>
+                </div>
+                <div class="mb-4">
+                    <h5><i class="bi bi-handshake-fill text-success me-2"></i>Fiducia</h5>
+                    <p class="text-muted">
+                        Costruiamo relazioni durature con i nostri partner e clienti, 
+                        basate sulla trasparenza e sulla qualità dei nostri prodotti.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="bg-white rounded-3 p-5 shadow-sm">
+                    <i class="bi bi-geo-alt-fill text-primary display-1 mb-3"></i>
+                    <h4>Comacchio</h4>
+                    <p class="text-muted">
+                        Nel cuore del Delta del Po, dove le acque dolci incontrano il mare, 
+                        creando l'ambiente perfetto per la coltivazione di molluschi di eccellenza.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

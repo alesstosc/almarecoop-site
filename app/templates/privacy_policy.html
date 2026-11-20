@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy - {{ global_settings.nome_sito if global_settings else 'Cooperativa Mitilicoltori' }}{% endblock %}
+
+{% block meta_description %}Privacy Policy e trattamento dei dati personali secondo il GDPR{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <h1 class="display-5 fw-bold text-primary mb-3">Privacy Policy</h1>
+                <p class="lead text-muted">
+                    Informativa sul trattamento dei dati personali ai sensi del Regolamento UE 2016/679 (GDPR)
+                </p>
+            </div>
+
+            <!-- Contenuto Privacy Policy -->
+            <div class="card shadow-sm">
+                <div class="card-body p-4 p-md-5">
+                    
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">1. Titolare del Trattamento</h2>
+                        <p>
+                            Il Titolare del trattamento dei dati è <strong>{{ global_settings.nome_sito if global_settings else 'Cooperativa Mitilicoltori' }}</strong>.
+                        </p>
+                        {% if global_settings and global_settings.colophon %}
+                        <div class="bg-light p-3 rounded">
+                            {{ global_settings.colophon | nl2br | safe }}
+                        </div>
+                        {% endif %}
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">2. Tipologie di Dati Raccolti</h2>
+                        <p>I dati personali che possiamo raccogliere includono:</p>
+                        <ul>
+                            <li><strong>Dati identificativi:</strong> nome, cognome, ragione sociale</li>
+                            <li><strong>Dati di contatto:</strong> indirizzo email, numero di telefono</li>
+                            <li><strong>Dati aziendali:</strong> partita IVA, settore di attività, tipologia di business</li>
+                            <li><strong>Dati tecnici:</strong> indirizzo IP, informazioni sul browser</li>
+                        </ul>
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">3. Finalità del Trattamento</h2>
+                        <p>I dati personali vengono trattati per le seguenti finalità:</p>
+                        <ul>
+                            <li>Rispondere alle richieste di informazioni e contatti</li>
+                            <li>Gestire le richieste di collaborazione commerciale</li>
+                            <li>Fornire informazioni sui nostri prodotti e servizi</li>
+                            <li>Adempiere agli obblighi di legge</li>
+                        </ul>
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">4. Base Giuridica</h2>
+                        <p>Il trattamento dei dati personali si basa su:</p>
+                        <ul>
+                            <li><strong>Consenso dell'interessato</strong> per l'invio di comunicazioni commerciali</li>
+                            <li><strong>Legittimo interesse</strong> per rispondere alle richieste di contatto</li>
+                            <li><strong>Esecuzione di un contratto</strong> per la gestione di rapporti commerciali</li>
+                        </ul>
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">5. Modalità di Trattamento</h2>
+                        <p>
+                            I dati personali sono trattati con strumenti automatizzati e manuali, 
+                            con logiche strettamente correlate alle finalità indicate e, comunque, 
+                            in modo da garantire la sicurezza e la riservatezza dei dati stessi.
+                        </p>
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">6. Conservazione dei Dati</h2>
+                        <p>
+                            I dati personali saranno conservati per il tempo strettamente necessario 
+                            al conseguimento delle finalità per cui sono stati raccolti e, in ogni caso, 
+                            per non oltre 5 anni dalla raccolta, salvo diversi obblighi di legge.
+                        </p>
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">7. Diritti dell'Interessato</h2>
+                        <p>L'interessato ha il diritto di:</p>
+                        <ul>
+                            <li>Accedere ai propri dati personali</li>
+                            <li>Rettificare i dati inesatti</li>
+                            <li>Cancellare i dati (diritto all'oblio)</li>
+                            <li>Limitare il trattamento</li>
+                            <li>Portabilità dei dati</li>
+                            <li>Opporsi al trattamento</li>
+                            <li>Revocare il consenso in qualsiasi momento</li>
+                        </ul>
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">8. Comunicazione e Diffusione</h2>
+                        <p>
+                            I dati personali non saranno diffusi e potranno essere comunicati 
+                            esclusivamente a soggetti terzi nei casi previsti dalla legge o 
+                            per l'esecuzione di obblighi contrattuali.
+                        </p>
+                    </section>
+
+                    <section class="mb-5">
+                        <h2 class="h4 text-primary mb-3">9. Sicurezza</h2>
+                        <p>
+                            Adottiamo misure di sicurezza tecniche e organizzative adeguate 
+                            per proteggere i dati personali da accessi non autorizzati, 
+                            perdita, distruzione o alterazione.
+                        </p>
+                    </section>
+
+                    <section class="mb-4">
+                        <h2 class="h4 text-primary mb-3">10. Modifiche alla Privacy Policy</h2>
+                        <p>
+                            Ci riserviamo il diritto di modificare questa Privacy Policy in qualsiasi momento. 
+                            Le modifiche saranno pubblicate su questa pagina con indicazione della data di aggiornamento.
+                        </p>
+                        <p class="text-muted">
+                            <small><strong>Ultimo aggiornamento:</strong> Gennaio 2024</small>
+                        </p>
+                    </section>
+
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="text-center mt-5">
+                <p class="text-muted mb-3">Hai domande sulla nostra Privacy Policy?</p>
+                <a href="{{ url_for('main.contatti') }}" class="btn btn-primary">
+                    <i class="bi bi-envelope me-2"></i>Contattaci
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

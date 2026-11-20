@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% block title %}I Nostri Prodotti - Cooperativa Mitilicoltori Comacchio{% endblock %}
+
+{% block meta_description %}Scopri i prodotti di alta qualità della Cooperativa Mitilicoltori di Comacchio: cozze, vongole e molluschi freschi dell'Adriatico.{% endblock %}
+
+{% block content %}
+<!-- Header della pagina -->
+<section class="bg-success text-white py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold mb-3">I Nostri Prodotti</h1>
+                <p class="lead">
+                    Molluschi freschi di alta qualità dalle acque cristalline dell'Adriatico
+                </p>
+            </div>
+            <div class="col-lg-4 text-center">
+                <i class="bi bi-fish display-1 opacity-75"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contenuti Dinamici dalla ContentCard -->
+{% if cards %}
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            {% for card in cards %}
+            <div class="col-lg-6">
+                <div class="card h-100 shadow-sm">
+                    {% if card.immagine_filename %}
+                    <img src="{{ url_for('static', filename='uploads/' + card.immagine_filename) }}" 
+                         class="card-img-top" alt="{{ card.titolo }}" style="height: 250px; object-fit: cover;">
+                    {% endif %}
+                    <div class="card-body d-flex flex-column">
+                        <h4 class="card-title text-success">{{ card.titolo }}</h4>
+                        <div class="card-text flex-grow-1">{{ card.contenuto | safe }}</div>
+                        <small class="text-muted mt-3">
+                            <i class="bi bi-calendar3 me-1"></i>
+                            Aggiornato il {{ card.updated_at.strftime('%d/%m/%Y') }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% else %}
+<!-- Contenuto di default se non ci sono card -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 class="mb-4">La Nostra Gamma di Prodotti</h2>
+                <p class="lead text-muted">
+                    Dalla tradizione dell'Adriatico, molluschi freschi coltivati con cura e passione
+                </p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <!-- Cozze -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header bg-success text-white text-center">
+                        <i class="bi bi-water fs-1 mb-2"></i>
+                        <h4 class="mb-0">Cozze</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            Cozze fresche dell'Adriatico, coltivate in acque controllate. 
+                            Ricche di sapore e perfette per ogni preparazione culinaria.
+                        </p>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Fresche giornalmente</li>
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Tracciabilità completa</li>
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Controlli di qualità</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vongole -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header bg-info text-white text-center">
+                        <i class="bi bi-circle fs-1 mb-2"></i>
+                        <h4 class="mb-0">Vongole</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            Vongole veraci di prima qualità, dal sapore delicato e dalla 
+                            consistenza perfetta per i piatti più raffinati.
+                        </p>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Vongole veraci</li>
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Sapore autentico</li>
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Dimensioni selezionate</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Altri Molluschi -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header bg-warning text-white text-center">
+                        <i class="bi bi-star fs-1 mb-2"></i>
+                        <h4 class="mb-0">Specialità</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            Ostriche, capesante e altri molluschi pregiati per soddisfare 
+                            le esigenze della ristorazione di alta qualità.
+                        </p>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Prodotti stagionali</li>
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Alta qualità</li>
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Su ordinazione</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Sezione Qualità e Certificazioni -->
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="mb-4">Qualità Garantita</h2>
+                <p class="lead text-muted mb-5">
+                    I nostri prodotti rispettano i più alti standard di qualità e sicurezza alimentare
+                </p>
+                
+                <div class="row g-4">
+                    <div class="col-md-3 col-6">
+                        <div class="text-center">
+                            <i class="bi bi-shield-check text-success fs-1 mb-2"></i>
+                            <h6>Certificazioni</h6>
+                            <small class="text-muted">Controlli sanitari</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="text-center">
+                            <i class="bi bi-thermometer text-primary fs-1 mb-2"></i>
+                            <h6>Catena del Freddo</h6>
+                            <small class="text-muted">Temperatura controllata</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="text-center">
+                            <i class="bi bi-truck text-warning fs-1 mb-2"></i>
+                            <h6>Consegna Rapida</h6>
+                            <small class="text-muted">Freschezza garantita</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="text-center">
+                            <i class="bi bi-award text-danger fs-1 mb-2"></i>
+                            <h6>Eccellenza</h6>
+                            <small class="text-muted">Prodotti premium</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h3 class="mb-4">Interessato ai Nostri Prodotti?</h3>
+                <p class="text-muted mb-4">
+                    Contattaci per ricevere informazioni dettagliate sui nostri prodotti, 
+                    listini prezzi e condizioni di fornitura.
+                </p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="{{ url_for('main.area_compratori') }}" class="btn btn-success btn-lg">
+                        <i class="bi bi-cart3 me-2"></i>Area Compratori
+                    </a>
+                    <a href="{{ url_for('main.contatti') }}" class="btn btn-outline-success btn-lg">
+                        <i class="bi bi-envelope me-2"></i>Contattaci
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

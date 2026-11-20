@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Pagina Non Trovata - {{ global_settings.nome_sito if global_settings else 'Cooperativa Mitilicoltori' }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+            
+            <!-- Icona di errore -->
+            <div class="mb-4">
+                <i class="bi bi-exclamation-triangle-fill text-warning" style="font-size: 5rem;"></i>
+            </div>
+            
+            <!-- Messaggio principale -->
+            <h1 class="display-4 fw-bold text-primary mb-3">404</h1>
+            <h2 class="h3 mb-4">Pagina Non Trovata</h2>
+            <p class="lead text-muted mb-4">
+                La pagina che stai cercando non esiste o è stata spostata.
+            </p>
+            
+            <!-- Suggerimenti -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Cosa puoi fare:</h5>
+                    <ul class="list-unstyled text-start">
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success me-2"></i>
+                            Verifica l'URL nella barra degli indirizzi
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success me-2"></i>
+                            Torna alla homepage e naviga da lì
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success me-2"></i>
+                            Usa il menu di navigazione
+                        </li>
+                        <li>
+                            <i class="bi bi-check-circle text-success me-2"></i>
+                            Contattaci se il problema persiste
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Pulsanti di azione -->
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+                <a href="{{ url_for('main.index') }}" class="btn btn-primary btn-lg">
+                    <i class="bi bi-house me-2"></i>Torna alla Homepage
+                </a>
+                <a href="{{ url_for('main.contatti') }}" class="btn btn-outline-primary btn-lg">
+                    <i class="bi bi-envelope me-2"></i>Contattaci
+                </a>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}
